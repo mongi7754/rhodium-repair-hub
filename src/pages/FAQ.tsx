@@ -1,5 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import ChatWidget from "@/components/ChatWidget";
 import {
   Accordion,
   AccordionContent,
@@ -115,6 +116,7 @@ const FAQ = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
+      <ChatWidget />
 
       <section className="pt-24 pb-16 px-4">
         <div className="container mx-auto max-w-4xl">

@@ -1,5 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import ChatWidget from "@/components/ChatWidget";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -71,6 +72,7 @@ Notes: ${formData.notes}`;
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
+      <ChatWidget />
 
       <section className="pt-24 pb-16 px-4">
         <div className="container mx-auto max-w-2xl">
