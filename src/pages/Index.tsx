@@ -1,5 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import ChatWidget from "@/components/ChatWidget";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
@@ -20,6 +21,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
+      <ChatWidget />
 
       {/* Hero Section */}
       <section className="pt-24 pb-16 px-4">
