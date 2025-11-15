@@ -200,12 +200,15 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* Testimonials Preview */}
       <section className="py-16 px-4">
         <div className="container mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
             What Our Customers Say
           </h2>
+          <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+            Don't just take our word for it - see what hundreds of satisfied customers have to say about our service
+          </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
@@ -247,6 +250,11 @@ const Index = () => {
                 </CardContent>
               </Card>
             ))}
+          </div>
+          <div className="text-center mt-8">
+            <Button asChild size="lg" variant="outline">
+              <Link to="/testimonials">Read All Reviews</Link>
+            </Button>
           </div>
         </div>
       </section>
