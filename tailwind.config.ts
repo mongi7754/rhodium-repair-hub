@@ -47,6 +47,10 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        coral: {
+          DEFAULT: "hsl(4, 85%, 58%)",
+          dark: "hsl(4, 90%, 50%)",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
