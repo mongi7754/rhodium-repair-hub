@@ -174,6 +174,9 @@ const Index = () => {
             <Button asChild size="lg" variant="outline">
               <Link to="/services">View All Services</Link>
             </Button>
+            <Button asChild size="lg" variant="secondary" className="ml-4">
+              <Link to="/gallery">View Repair Gallery</Link>
+            </Button>
           </div>
         </div>
       </section>
