@@ -1,6 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ChatWidget from "@/components/ChatWidget";
+import { MpesaPayment } from "@/components/MpesaPayment";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,6 +24,7 @@ import { cn } from "@/lib/utils";
 
 const Booking = () => {
   const [date, setDate] = useState<Date>();
+  const [showPayment, setShowPayment] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -281,6 +283,39 @@ Notes: ${formData.notes}`;
                 </p>
               </CardContent>
             </Card>
+          </div>
+
+          {/* M-Pesa Payment Section */}
+          <div className="mt-8">
+            {!showPayment ? (
+              <Card>
+                <CardContent className="pt-6 text-center">
+                  <h3 className="text-xl font-semibold mb-2">Secure Your Booking</h3>
+                  <p className="text-muted-foreground mb-4">
+                    Pay a KSh 500 deposit to guarantee your appointment slot
+                  </p>
+                  <Button 
+                    onClick={() => setShowPayment(true)}
+                    variant="outline"
+                    size="lg"
+                  >
+                    Pay Deposit with M-Pesa
+                  </Button>
+                </CardContent>
+              </Card>
+            ) : (
+              <MpesaPayment
+                amount={500}
+                accountReference={`BOOKING-${formData.phone || 'NEW'}`}
+                transactionDesc="Repair Booking Deposit"
+                onSuccess={() => {
+                  toast({
+                    title: "Payment Successful!",
+                    description: "Your booking is now confirmed. We'll see you soon!",
+                  });
+                }}
+              />
+            )}
           </div>
         </div>
       </section>
