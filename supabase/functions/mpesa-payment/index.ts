@@ -1,9 +1,15 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.81.1';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
+
+// Initialize Supabase client
+const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 interface STKPushRequest {
   phoneNumber: string;
@@ -110,6 +116,25 @@ async function initiateSTKPush(req: STKPushRequest) {
   }
 
   console.log('STK Push initiated successfully:', data.CheckoutRequestID);
+  
+  // Store payment record in database
+  const { error: dbError } = await supabase
+    .from('payments')
+    .insert({
+      user_phone: phoneNumber,
+      amount: req.amount,
+      account_reference: req.accountReference,
+      transaction_desc: req.transactionDesc,
+      checkout_request_id: data.CheckoutRequestID,
+      merchant_request_id: data.MerchantRequestID,
+      status: 'pending',
+    });
+
+  if (dbError) {
+    console.error('Database error:', dbError);
+    // Don't throw error, just log it - payment was initiated successfully
+  }
+  
   return data;
 }
 
@@ -156,8 +181,34 @@ serve(async (req) => {
       const callback = await req.json();
       console.log('M-Pesa Callback received:', JSON.stringify(callback, null, 2));
       
-      // Store callback in database or process as needed
-      // You can add database logic here to update payment status
+      // Extract callback data
+      const resultCode = callback.Body?.stkCallback?.ResultCode;
+      const resultDesc = callback.Body?.stkCallback?.ResultDesc;
+      const checkoutRequestId = callback.Body?.stkCallback?.CheckoutRequestID;
+      const callbackMetadata = callback.Body?.stkCallback?.CallbackMetadata?.Item || [];
+      
+      // Extract M-Pesa receipt number if successful
+      let mpesaReceiptNumber = null;
+      if (resultCode === 0) {
+        const receiptItem = callbackMetadata.find((item: any) => item.Name === 'MpesaReceiptNumber');
+        mpesaReceiptNumber = receiptItem?.Value;
+      }
+      
+      // Update payment status in database
+      const { error: updateError } = await supabase
+        .from('payments')
+        .update({
+          status: resultCode === 0 ? 'completed' : 'failed',
+          result_code: resultCode?.toString(),
+          result_desc: resultDesc,
+          mpesa_receipt_number: mpesaReceiptNumber,
+          transaction_date: new Date().toISOString(),
+        })
+        .eq('checkout_request_id', checkoutRequestId);
+
+      if (updateError) {
+        console.error('Error updating payment status:', updateError);
+      }
       
       return new Response(
         JSON.stringify({ success: true }),

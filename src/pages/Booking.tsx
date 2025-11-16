@@ -301,6 +301,18 @@ Notes: ${formData.notes}`;
                   >
                     Pay Deposit with M-Pesa
                   </Button>
+                  <div className="mt-4 pt-4 border-t">
+                    <p className="text-sm text-muted-foreground mb-2">
+                      Already paid? View your payment history
+                    </p>
+                    <Button 
+                      onClick={() => window.location.href = '/payment-history'}
+                      variant="link"
+                      size="sm"
+                    >
+                      View Payment History
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             ) : (
