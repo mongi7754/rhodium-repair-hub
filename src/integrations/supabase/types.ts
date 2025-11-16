@@ -14,7 +14,57 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      payments: {
+        Row: {
+          account_reference: string
+          amount: number
+          checkout_request_id: string | null
+          created_at: string
+          id: string
+          merchant_request_id: string | null
+          mpesa_receipt_number: string | null
+          result_code: string | null
+          result_desc: string | null
+          status: string
+          transaction_date: string | null
+          transaction_desc: string | null
+          updated_at: string
+          user_phone: string
+        }
+        Insert: {
+          account_reference: string
+          amount: number
+          checkout_request_id?: string | null
+          created_at?: string
+          id?: string
+          merchant_request_id?: string | null
+          mpesa_receipt_number?: string | null
+          result_code?: string | null
+          result_desc?: string | null
+          status?: string
+          transaction_date?: string | null
+          transaction_desc?: string | null
+          updated_at?: string
+          user_phone: string
+        }
+        Update: {
+          account_reference?: string
+          amount?: number
+          checkout_request_id?: string | null
+          created_at?: string
+          id?: string
+          merchant_request_id?: string | null
+          mpesa_receipt_number?: string | null
+          result_code?: string | null
+          result_desc?: string | null
+          status?: string
+          transaction_date?: string | null
+          transaction_desc?: string | null
+          updated_at?: string
+          user_phone?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
