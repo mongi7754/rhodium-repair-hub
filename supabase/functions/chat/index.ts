@@ -25,7 +25,8 @@ serve(async (req) => {
 SERVICES & PRICING:
 - Screen replacement: KSh 1,840 - 40,000 (depends on model)
 - Battery replacement: KSh 1,500 - 6,000
-- Charging port repair: KSh 2,000 - 5,000
+- Charging port repair: KSh 300
+- Charging system repair: KSh 500
 - Camera repair: KSh 2,500 - 8,000
 - Water damage recovery: KSh 2,500 - 12,000
 - Motherboard repair: KSh 3,000 - 15,000
