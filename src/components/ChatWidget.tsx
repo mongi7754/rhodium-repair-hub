@@ -3,9 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { MessageCircle, X, Send, Loader2 } from "lucide-react";
+import { MessageCircle, X, Send, Loader2, Mic, MicOff } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
+import { useVoiceRecording } from "@/hooks/useVoiceRecording";
 
 interface Message {
   role: "user" | "assistant";
@@ -25,6 +26,7 @@ const ChatWidget = () => {
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+  const { isRecording, isProcessing, startRecording, stopRecording } = useVoiceRecording();
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -121,6 +123,17 @@ const ChatWidget = () => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       sendMessage();
+    }
+  };
+
+  const handleVoiceInput = async () => {
+    if (isRecording) {
+      const transcribedText = await stopRecording();
+      if (transcribedText) {
+        setInput(transcribedText);
+      }
+    } else {
+      await startRecording();
     }
   };
 
@@ -229,13 +242,28 @@ const ChatWidget = () => {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  placeholder="Ask about repairs, pricing..."
-                  disabled={isLoading}
+                  placeholder={isRecording ? "Listening..." : "Ask about repairs, pricing..."}
+                  disabled={isLoading || isProcessing || isRecording}
                   className="flex-1"
                 />
                 <Button
+                  onClick={handleVoiceInput}
+                  disabled={isLoading || isProcessing}
+                  size="icon"
+                  variant={isRecording ? "destructive" : "outline"}
+                  title={isRecording ? "Stop recording" : "Start voice input"}
+                >
+                  {isProcessing ? (
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                  ) : isRecording ? (
+                    <MicOff className="h-4 w-4" />
+                  ) : (
+                    <Mic className="h-4 w-4" />
+                  )}
+                </Button>
+                <Button
                   onClick={sendMessage}
-                  disabled={isLoading || !input.trim()}
+                  disabled={isLoading || !input.trim() || isProcessing}
                   size="icon"
                   className="bg-primary hover:bg-accent"
                 >
