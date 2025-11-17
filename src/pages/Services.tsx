@@ -64,10 +64,27 @@ const Services = () => {
         "Charging intermittently",
       ],
       repairTime: "1-2 hours",
-      priceRange: "KSh 2,000 - 5,000",
+      priceRange: "KSh 300",
       warranty: "60 days",
       technical:
         "Includes USB-C, Lightning, and Micro-USB port replacements. We clean debris and repair broken solder connections.",
+    },
+    {
+      icon: Battery,
+      title: "Charging System Repair",
+      description:
+        "Complete charging circuit repair including IC replacement, power management fixes, and board-level charging diagnostics.",
+      symptoms: [
+        "Phone won't charge at all",
+        "Charging but not increasing",
+        "Overheating while charging",
+        "Charging cuts off randomly",
+      ],
+      repairTime: "2-4 hours",
+      priceRange: "KSh 500",
+      warranty: "60 days",
+      technical:
+        "Includes charging IC replacement, power management IC repair, and complete charging circuit diagnostics. Advanced micro-soldering required.",
     },
     {
       icon: Camera,

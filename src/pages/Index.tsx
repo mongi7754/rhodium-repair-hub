@@ -1,6 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ChatWidget from "@/components/ChatWidget";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
@@ -26,6 +27,9 @@ const Index = () => {
       {/* Hero Section */}
       <section className="pt-24 pb-16 px-4">
         <div className="container mx-auto">
+          <div className="flex justify-end mb-4">
+            <ThemeToggle />
+          </div>
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               Fast, Trusted & Professional Phone Repairs in Nairobi
