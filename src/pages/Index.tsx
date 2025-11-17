@@ -1,6 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ChatWidget from "@/components/ChatWidget";
+import LocationMap from "@/components/LocationMap";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -186,18 +187,31 @@ const Index = () => {
       </section>
 
       {/* Location CTA */}
-      <section className="py-16 px-4 bg-primary text-primary-foreground">
-        <div className="container mx-auto text-center">
-          <MapPin className="w-16 h-16 mx-auto mb-4" />
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Visit Our Store</h2>
-          <p className="text-lg mb-6">
-            Roysambu, Nairobi - Next to Shell Petrol Station
-          </p>
+      <section className="py-16 px-4 bg-muted/30">
+        <div className="container mx-auto">
+          <div className="text-center mb-8">
+            <MapPin className="w-16 h-16 mx-auto mb-4 text-primary" />
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Visit Our Store</h2>
+            <p className="text-lg text-muted-foreground mb-6">
+              Roysambu, Nairobi - Next to Shell Petrol Station, Kasarani Area
+            </p>
+          </div>
+          
+          <div className="max-w-4xl mx-auto mb-8">
+            <LocationMap />
+          </div>
+          
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" variant="secondary">
-              <Link to="/contact">Get Directions</Link>
+            <Button asChild size="lg" variant="default">
+              <a 
+                href="https://maps.google.com/?q=Roysambu+Shell+Nairobi" 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                Get Directions
+              </a>
             </Button>
-            <Button asChild size="lg" variant="outline" className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
+            <Button asChild size="lg" variant="secondary">
               <Link to="/booking">Book Appointment</Link>
             </Button>
           </div>
