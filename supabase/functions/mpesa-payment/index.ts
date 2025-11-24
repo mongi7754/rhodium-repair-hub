@@ -26,7 +26,7 @@ async function getAccessToken(): Promise<string> {
   const auth = btoa(`${consumerKey}:${consumerSecret}`);
   
   const response = await fetch(
-    'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials',
+    'https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials',
     {
       headers: {
         'Authorization': `Basic ${auth}`,
@@ -89,7 +89,7 @@ async function initiateSTKPush(req: STKPushRequest) {
     PartyA: phoneNumber,
     PartyB: shortcode,
     PhoneNumber: phoneNumber,
-    CallBackURL: 'https://your-callback-url.com/mpesa/callback', // Update with actual callback
+    CallBackURL: `${Deno.env.get('SUPABASE_URL')}/functions/v1/mpesa-payment/callback`,
     AccountReference: req.accountReference,
     TransactionDesc: req.transactionDesc,
   };
@@ -97,7 +97,7 @@ async function initiateSTKPush(req: STKPushRequest) {
   console.log('Initiating STK Push for:', phoneNumber, 'Amount:', req.amount);
 
   const response = await fetch(
-    'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest',
+    'https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest',
     {
       method: 'POST',
       headers: {
