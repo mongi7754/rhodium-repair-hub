@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      expenses: {
+        Row: {
+          amount: number
+          category: string | null
+          created_at: string
+          description: string
+          expense_date: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          category?: string | null
+          created_at?: string
+          description: string
+          expense_date?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          category?: string | null
+          created_at?: string
+          description?: string
+          expense_date?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       payments: {
         Row: {
           account_reference: string
@@ -65,15 +95,170 @@ export type Database = {
         }
         Relationships: []
       }
+      products: {
+        Row: {
+          buying_price: number
+          category: string | null
+          created_at: string
+          id: string
+          name: string
+          reorder_level: number
+          selling_price: number
+          stock_quantity: number
+          unit: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          buying_price?: number
+          category?: string | null
+          created_at?: string
+          id?: string
+          name: string
+          reorder_level?: number
+          selling_price?: number
+          stock_quantity?: number
+          unit?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          buying_price?: number
+          category?: string | null
+          created_at?: string
+          id?: string
+          name?: string
+          reorder_level?: number
+          selling_price?: number
+          stock_quantity?: number
+          unit?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          business_name: string
+          created_at: string
+          full_name: string
+          id: string
+          language_preference: string | null
+          phone: string | null
+          pin_code: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          business_name?: string
+          created_at?: string
+          full_name?: string
+          id?: string
+          language_preference?: string | null
+          phone?: string | null
+          pin_code?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          business_name?: string
+          created_at?: string
+          full_name?: string
+          id?: string
+          language_preference?: string | null
+          phone?: string | null
+          pin_code?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      sales: {
+        Row: {
+          created_at: string
+          id: string
+          logged_via: string | null
+          notes: string | null
+          payment_method: string | null
+          product_id: string | null
+          product_name: string
+          quantity: number
+          sale_date: string
+          total_amount: number
+          unit_price: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          logged_via?: string | null
+          notes?: string | null
+          payment_method?: string | null
+          product_id?: string | null
+          product_name: string
+          quantity?: number
+          sale_date?: string
+          total_amount: number
+          unit_price: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          logged_via?: string | null
+          notes?: string | null
+          payment_method?: string | null
+          product_id?: string | null
+          product_name?: string
+          quantity?: number
+          sale_date?: string
+          total_amount?: number
+          unit_price?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sales_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "owner" | "manager" | "cashier"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -200,6 +385,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["owner", "manager", "cashier"],
+    },
   },
 } as const
