@@ -2,75 +2,94 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 220 15% 15%;
+    --background: 150 10% 97%;
+    --foreground: 160 20% 10%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 15% 15%;
+    --card-foreground: 160 20% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 15% 15%;
+    --popover-foreground: 160 20% 10%;
 
-    --primary: 4 85% 58%;
+    --primary: 145 65% 38%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 18% 25%;
+    --secondary: 30 80% 55%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 15% 96%;
-    --muted-foreground: 220 10% 45%;
+    --muted: 150 10% 93%;
+    --muted-foreground: 160 10% 45%;
 
-    --accent: 4 90% 50%;
+    --accent: 200 85% 50%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 210 15% 90%;
-    --input: 210 15% 90%;
-    --ring: 200 100% 45%;
+    --success: 145 65% 38%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    --border: 150 10% 88%;
+    --input: 150 10% 88%;
+    --ring: 145 65% 38%;
 
     --radius: 0.75rem;
 
-    --hero-gradient: linear-gradient(135deg, hsl(4, 85%, 58%) 0%, hsl(220, 18%, 25%) 100%);
-    --tech-glow: 0 0 30px hsla(4, 85%, 58%, 0.3);
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --sidebar-background: 160 20% 10%;
+    --sidebar-foreground: 150 10% 90%;
+    --sidebar-primary: 145 65% 45%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 160 15% 18%;
+    --sidebar-accent-foreground: 150 10% 90%;
+    --sidebar-border: 160 15% 20%;
   }
 
   .dark {
-    --background: 220 20% 8%;
-    --foreground: 210 15% 95%;
+    --background: 160 20% 6%;
+    --foreground: 150 10% 93%;
 
-    --card: 220 18% 12%;
-    --card-foreground: 210 15% 95%;
+    --card: 160 18% 10%;
+    --card-foreground: 150 10% 93%;
 
-    --popover: 220 18% 12%;
-    --popover-foreground: 210 15% 95%;
+    --popover: 160 18% 10%;
+    --popover-foreground: 150 10% 93%;
 
-    --primary: 4 85% 58%;
+    --primary: 145 65% 45%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 18% 30%;
-    --secondary-foreground: 210 15% 95%;
+    --secondary: 30 80% 55%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 220 15% 18%;
-    --muted-foreground: 210 10% 60%;
+    --muted: 160 15% 15%;
+    --muted-foreground: 150 10% 55%;
 
-    --accent: 4 90% 50%;
+    --accent: 200 85% 55%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 62.8% 50%;
+    --destructive: 0 62% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 15% 20%;
-    --input: 220 15% 20%;
-    --ring: 200 100% 50%;
+    --success: 145 65% 45%;
+    --warning: 38 92% 50%;
+
+    --border: 160 15% 18%;
+    --input: 160 15% 18%;
+    --ring: 145 65% 50%;
+
+    --sidebar-background: 160 22% 5%;
+    --sidebar-foreground: 150 10% 90%;
+    --sidebar-primary: 145 65% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 160 18% 12%;
+    --sidebar-accent-foreground: 150 10% 90%;
+    --sidebar-border: 160 15% 15%;
   }
 }
 
@@ -80,6 +99,26 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+  }
+}
+
+@layer utilities {
+  .voice-pulse {
+    animation: voice-pulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes voice-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 hsl(145 65% 38% / 0.4); }
+    50% { box-shadow: 0 0 0 20px hsl(145 65% 38% / 0); }
+  }
+
+  .gradient-kenyan {
+    background: linear-gradient(135deg, hsl(145, 65%, 38%) 0%, hsl(0, 0%, 10%) 50%, hsl(0, 72%, 51%) 100%);
   }
 }
