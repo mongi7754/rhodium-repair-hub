@@ -7,6 +7,7 @@ import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import VoiceLog from "./pages/VoiceLog";
 import Sales from "./pages/Sales";
+import Reports from "./pages/Reports";
 import Inventory from "./pages/Inventory";
 import Expenses from "./pages/Expenses";
 import AppSettings from "./pages/AppSettings";
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/voice" element={<ProtectedRoute><VoiceLog /></ProtectedRoute>} />
           <Route path="/sales" element={<ProtectedRoute><Sales /></ProtectedRoute>} />
+          <Route path="/reports" element={<ProtectedRoute><Reports /></ProtectedRoute>} />
           <Route path="/inventory" element={<ProtectedRoute><Inventory /></ProtectedRoute>} />
           <Route path="/expenses" element={<ProtectedRoute><Expenses /></ProtectedRoute>} />
           <Route path="/settings" element={<ProtectedRoute><AppSettings /></ProtectedRoute>} />

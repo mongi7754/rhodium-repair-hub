@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
-import { Mic, Shield, BarChart3, Package } from "lucide-react";
+import { Mic, Shield, BarChart3, Package, Sparkles } from "lucide-react";
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -57,27 +57,40 @@ const Auth = () => {
 
   return (
     <div className="min-h-screen bg-background flex">
-      {/* Left panel - branding */}
-      <div className="hidden lg:flex lg:w-1/2 gradient-kenyan items-center justify-center p-12">
-        <div className="max-w-md text-white space-y-8">
+      {/* Left panel */}
+      <div className="hidden lg:flex lg:w-1/2 gradient-hero items-center justify-center p-12 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          {[...Array(6)].map((_, i) => (
+            <div key={i} className="absolute rounded-full bg-white/10" style={{
+              width: `${100 + i * 80}px`, height: `${100 + i * 80}px`,
+              top: `${10 + i * 12}%`, left: `${-5 + i * 15}%`,
+            }} />
+          ))}
+        </div>
+        <div className="max-w-md text-white space-y-8 relative z-10">
           <div className="space-y-4">
-            <h1 className="text-5xl font-bold tracking-tight">
-              Ongea na Biz
-            </h1>
+            <div className="flex items-center gap-3">
+              <div className="h-12 w-12 rounded-xl bg-white/20 flex items-center justify-center">
+                <Sparkles className="h-6 w-6" />
+              </div>
+              <h1 className="text-4xl font-extrabold tracking-tight">
+                BiasharaAI
+              </h1>
+            </div>
             <p className="text-xl text-white/80">
-              Voice-first AI biashara assistant for Kenyan SMEs
+              AI-powered business intelligence for African SMEs
             </p>
           </div>
 
           <div className="space-y-4">
             {[
-              { icon: Mic, text: "Speak your sales in Swahili or English" },
-              { icon: BarChart3, text: "Real-time profit & business health" },
-              { icon: Package, text: "Smart inventory with demand prediction" },
-              { icon: Shield, text: "Bank-grade security for your data" },
+              { icon: Mic, text: "Voice-powered sales logging" },
+              { icon: BarChart3, text: "Smart profit analytics & forecasting" },
+              { icon: Package, text: "Intelligent inventory management" },
+              { icon: Shield, text: "Bank-grade data security" },
             ].map(({ icon: Icon, text }) => (
               <div key={text} className="flex items-center gap-3">
-                <div className="h-10 w-10 rounded-lg bg-white/10 flex items-center justify-center">
+                <div className="h-10 w-10 rounded-xl bg-white/15 flex items-center justify-center backdrop-blur-sm">
                   <Icon className="h-5 w-5" />
                 </div>
                 <span className="text-white/90">{text}</span>
@@ -87,15 +100,16 @@ const Auth = () => {
         </div>
       </div>
 
-      {/* Right panel - form */}
+      {/* Right panel */}
       <div className="flex-1 flex items-center justify-center p-6">
-        <Card className="w-full max-w-md">
+        <Card className="w-full max-w-md shadow-xl">
           <CardHeader className="text-center">
-            <div className="lg:hidden mb-4">
-              <h1 className="text-3xl font-bold text-primary">Ongea na Biz</h1>
+            <div className="lg:hidden mb-4 flex items-center justify-center gap-2">
+              <Sparkles className="h-6 w-6 text-primary" />
+              <h1 className="text-3xl font-extrabold text-primary">BiasharaAI</h1>
             </div>
             <CardTitle className="text-2xl">
-              {isLogin ? "Karibu tena!" : "Anza biashara yako"}
+              {isLogin ? "Welcome back!" : "Get started free"}
             </CardTitle>
             <CardDescription>
               {isLogin
@@ -109,60 +123,29 @@ const Auth = () => {
                 <>
                   <div className="space-y-2">
                     <Label htmlFor="fullName">Full Name</Label>
-                    <Input
-                      id="fullName"
-                      value={fullName}
-                      onChange={(e) => setFullName(e.target.value)}
-                      placeholder="John Kamau"
-                      required
-                    />
+                    <Input id="fullName" value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="John Doe" required />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="businessName">Business Name</Label>
-                    <Input
-                      id="businessName"
-                      value={businessName}
-                      onChange={(e) => setBusinessName(e.target.value)}
-                      placeholder="Kamau Electronics"
-                    />
+                    <Input id="businessName" value={businessName} onChange={(e) => setBusinessName(e.target.value)} placeholder="My Shop" />
                   </div>
                 </>
               )}
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@example.com"
-                  required
-                />
+                <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" required />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  required
-                  minLength={6}
-                />
+                <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" required minLength={6} />
               </div>
-              <Button type="submit" className="w-full" disabled={loading}>
+              <Button type="submit" className="w-full h-11 text-base" disabled={loading}>
                 {loading ? "Please wait..." : isLogin ? "Sign In" : "Create Account"}
               </Button>
             </form>
             <div className="mt-4 text-center">
-              <button
-                onClick={() => setIsLogin(!isLogin)}
-                className="text-sm text-primary hover:underline"
-              >
-                {isLogin
-                  ? "Don't have an account? Sign up"
-                  : "Already have an account? Sign in"}
+              <button onClick={() => setIsLogin(!isLogin)} className="text-sm text-primary hover:underline">
+                {isLogin ? "Don't have an account? Sign up" : "Already have an account? Sign in"}
               </button>
             </div>
           </CardContent>

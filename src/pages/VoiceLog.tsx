@@ -1,7 +1,6 @@
 import { useState, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
-import { useVoiceRecording } from "@/hooks/useVoiceRecording";
 import AppLayout from "@/components/AppLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,23 +8,24 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { Mic, MicOff, Loader2, Send, Check } from "lucide-react";
+import { useVoiceRecording } from "@/hooks/useVoiceRecording";
+
+interface ParsedSale {
+  product_name: string;
+  quantity: number;
+  unit_price: number;
+  total_amount: number;
+  payment_method: string;
+}
 
 const VoiceLog = () => {
   const { user } = useAuth();
   const { toast } = useToast();
   const { isRecording, isProcessing, startRecording, stopRecording } = useVoiceRecording();
   const [transcribedText, setTranscribedText] = useState("");
-  const [parsedSale, setParsedSale] = useState<{
-    product_name: string;
-    quantity: number;
-    unit_price: number;
-    total_amount: number;
-    payment_method: string;
-  } | null>(null);
+  const [parsedSale, setParsedSale] = useState<ParsedSale | null>(null);
   const [isParsing, setIsParsing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-
-  // Manual input fallback
   const [manualProduct, setManualProduct] = useState("");
   const [manualAmount, setManualAmount] = useState("");
 
@@ -46,26 +46,16 @@ const VoiceLog = () => {
   const parseVoiceToSale = async (text: string) => {
     setIsParsing(true);
     try {
-      const { data, error } = await supabase.functions.invoke("parse-voice-sale", {
-        body: { text },
-      });
+      const { data, error } = await supabase.functions.invoke("parse-voice-sale", { body: { text } });
       if (error) throw error;
       if (data?.sale) {
         setParsedSale(data.sale);
       } else {
-        toast({
-          title: "Could not parse",
-          description: "Try saying something like: 'Nimeuza simu moja elfu nane'",
-          variant: "destructive",
-        });
+        toast({ title: "Could not parse", description: "Try saying something like: 'Sold one phone for eight thousand'", variant: "destructive" });
       }
     } catch (error) {
       console.error("Parse error:", error);
-      toast({
-        title: "Parse failed",
-        description: "Enter the sale manually below",
-        variant: "destructive",
-      });
+      toast({ title: "Parse failed", description: "Enter the sale manually below", variant: "destructive" });
     } finally {
       setIsParsing(false);
     }
@@ -100,15 +90,9 @@ const VoiceLog = () => {
         logged_via: parsedSale ? "voice" : "manual",
         notes: transcribedText || "",
       });
-
       if (error) throw error;
 
-      toast({
-        title: "Sale logged! ✅",
-        description: `${saleData.product_name} - KSh ${saleData.total_amount.toLocaleString()}`,
-      });
-
-      // Reset
+      toast({ title: "Sale logged! ✅", description: `${saleData.product_name} - KSh ${saleData.total_amount.toLocaleString()}` });
       setTranscribedText("");
       setParsedSale(null);
       setManualProduct("");
@@ -120,14 +104,20 @@ const VoiceLog = () => {
     }
   };
 
+  const statusText = isRecording
+    ? "🔴 Listening... Tap to stop"
+    : isProcessing
+    ? "Processing audio..."
+    : isParsing
+    ? "Understanding your sale..."
+    : "Tap the mic to speak";
+
   return (
     <AppLayout>
       <div className="space-y-6 max-w-lg mx-auto">
         <div className="text-center space-y-2">
           <h1 className="text-3xl font-bold">Voice Sales Log</h1>
-          <p className="text-muted-foreground">
-            Sema mauzo yako kwa Kiswahili au English
-          </p>
+          <p className="text-muted-foreground">Record your sales by speaking naturally</p>
         </div>
 
         {/* Voice Button */}
@@ -135,11 +125,9 @@ const VoiceLog = () => {
           <button
             onClick={handleVoice}
             disabled={isProcessing || isParsing}
-            className={`h-32 w-32 rounded-full flex items-center justify-center transition-all ${
-              isRecording
-                ? "bg-destructive voice-pulse"
-                : "bg-primary hover:bg-primary/90"
-            } text-primary-foreground`}
+            className={`h-32 w-32 rounded-full flex items-center justify-center transition-all shadow-xl ${
+              isRecording ? "bg-destructive voice-pulse" : "gradient-card hover:opacity-90"
+            } text-white`}
           >
             {isProcessing || isParsing ? (
               <Loader2 className="h-12 w-12 animate-spin" />
@@ -151,15 +139,7 @@ const VoiceLog = () => {
           </button>
         </div>
 
-        <p className="text-center text-sm text-muted-foreground">
-          {isRecording
-            ? "🔴 Listening... Tap to stop"
-            : isProcessing
-            ? "Processing audio..."
-            : isParsing
-            ? "Understanding your sale..."
-            : "Tap the mic to speak"}
-        </p>
+        <p className="text-center text-sm text-muted-foreground">{statusText}</p>
 
         {/* Transcribed Text */}
         {transcribedText && (
@@ -173,31 +153,19 @@ const VoiceLog = () => {
 
         {/* Parsed Sale */}
         {parsedSale && (
-          <Card className="border-primary">
+          <Card className="border-primary shadow-lg">
             <CardHeader className="pb-2">
               <CardTitle className="text-lg flex items-center gap-2">
-                <Check className="h-5 w-5 text-primary" />
+                <Check className="h-5 w-5 text-accent" />
                 Sale Detected
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
               <div className="grid grid-cols-2 gap-2 text-sm">
-                <div>
-                  <span className="text-muted-foreground">Product:</span>
-                  <p className="font-medium">{parsedSale.product_name}</p>
-                </div>
-                <div>
-                  <span className="text-muted-foreground">Quantity:</span>
-                  <p className="font-medium">{parsedSale.quantity}</p>
-                </div>
-                <div>
-                  <span className="text-muted-foreground">Unit Price:</span>
-                  <p className="font-medium">KSh {parsedSale.unit_price.toLocaleString()}</p>
-                </div>
-                <div>
-                  <span className="text-muted-foreground">Total:</span>
-                  <p className="font-bold text-primary">KSh {parsedSale.total_amount.toLocaleString()}</p>
-                </div>
+                <div><span className="text-muted-foreground">Product:</span><p className="font-medium">{parsedSale.product_name}</p></div>
+                <div><span className="text-muted-foreground">Quantity:</span><p className="font-medium">{parsedSale.quantity}</p></div>
+                <div><span className="text-muted-foreground">Unit Price:</span><p className="font-medium">KSh {parsedSale.unit_price.toLocaleString()}</p></div>
+                <div><span className="text-muted-foreground">Total:</span><p className="font-bold text-primary">KSh {parsedSale.total_amount.toLocaleString()}</p></div>
               </div>
               <Button onClick={saveSale} disabled={isSaving} className="w-full mt-4">
                 {isSaving ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
@@ -216,28 +184,13 @@ const VoiceLog = () => {
             <CardContent className="space-y-3">
               <div className="space-y-1">
                 <Label htmlFor="product">Product Name</Label>
-                <Input
-                  id="product"
-                  value={manualProduct}
-                  onChange={(e) => setManualProduct(e.target.value)}
-                  placeholder="e.g. Simu, Charger, Earphones"
-                />
+                <Input id="product" value={manualProduct} onChange={(e) => setManualProduct(e.target.value)} placeholder="e.g. Phone, Charger, Earphones" />
               </div>
               <div className="space-y-1">
                 <Label htmlFor="amount">Amount (KSh)</Label>
-                <Input
-                  id="amount"
-                  type="number"
-                  value={manualAmount}
-                  onChange={(e) => setManualAmount(e.target.value)}
-                  placeholder="e.g. 8500"
-                />
+                <Input id="amount" type="number" value={manualAmount} onChange={(e) => setManualAmount(e.target.value)} placeholder="e.g. 8500" />
               </div>
-              <Button
-                onClick={saveSale}
-                disabled={isSaving || !manualProduct || !manualAmount}
-                className="w-full"
-              >
+              <Button onClick={saveSale} disabled={isSaving || !manualProduct || !manualAmount} className="w-full">
                 <Send className="h-4 w-4 mr-2" />
                 Log Sale
               </Button>

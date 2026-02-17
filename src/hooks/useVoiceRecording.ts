@@ -15,13 +15,19 @@ export const useVoiceRecording = () => {
         audio: {
           echoCancellation: true,
           noiseSuppression: true,
-          autoGainControl: true
+          autoGainControl: true,
+          sampleRate: 16000,
         } 
       });
       
-      const mediaRecorder = new MediaRecorder(stream, {
-        mimeType: 'audio/webm',
-      });
+      // Try supported mime types
+      const mimeType = MediaRecorder.isTypeSupported('audio/webm;codecs=opus')
+        ? 'audio/webm;codecs=opus'
+        : MediaRecorder.isTypeSupported('audio/webm')
+        ? 'audio/webm'
+        : 'audio/mp4';
+
+      const mediaRecorder = new MediaRecorder(stream, { mimeType });
       
       chunksRef.current = [];
       
@@ -31,19 +37,20 @@ export const useVoiceRecording = () => {
         }
       };
       
-      mediaRecorder.start();
+      // Use timeslice to capture data every 250ms
+      mediaRecorder.start(250);
       mediaRecorderRef.current = mediaRecorder;
       setIsRecording(true);
       
       toast({
-        title: "Recording started",
-        description: "Speak your question clearly",
+        title: "Recording started 🎙️",
+        description: "Speak clearly — tap again to stop",
       });
     } catch (error) {
       console.error('Error starting recording:', error);
       toast({
         title: "Microphone access denied",
-        description: "Please allow microphone access to use voice input",
+        description: "Please allow microphone access in your browser settings",
         variant: "destructive",
       });
     }
@@ -59,8 +66,20 @@ export const useVoiceRecording = () => {
       setIsProcessing(true);
 
       mediaRecorderRef.current.onstop = async () => {
-        const audioBlob = new Blob(chunksRef.current, { type: 'audio/webm' });
+        const mimeType = mediaRecorderRef.current?.mimeType || 'audio/webm';
+        const audioBlob = new Blob(chunksRef.current, { type: mimeType });
         
+        if (audioBlob.size < 1000) {
+          toast({
+            title: "No audio captured",
+            description: "Please try again and speak louder",
+            variant: "destructive",
+          });
+          setIsProcessing(false);
+          resolve(null);
+          return;
+        }
+
         // Convert blob to base64
         const reader = new FileReader();
         reader.readAsDataURL(audioBlob);
@@ -79,19 +98,16 @@ export const useVoiceRecording = () => {
           }
 
           try {
-            // Send to voice-to-text edge function
             const { data, error } = await supabase.functions.invoke('voice-to-text', {
               body: { audio: base64Audio },
             });
 
-            if (error) {
-              throw error;
-            }
+            if (error) throw error;
 
             if (data?.text) {
               toast({
-                title: "Voice recognized",
-                description: "Processing your question...",
+                title: "Voice recognized ✅",
+                description: data.text.substring(0, 60) + "...",
               });
               setIsProcessing(false);
               resolve(data.text);
@@ -102,7 +118,7 @@ export const useVoiceRecording = () => {
             console.error('Error transcribing audio:', error);
             toast({
               title: "Transcription failed",
-              description: "Please try typing your question instead",
+              description: "Please try again or type manually",
               variant: "destructive",
             });
             setIsProcessing(false);
