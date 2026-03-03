@@ -231,7 +231,7 @@ const Brands = () => {
                   variant="outline"
                   className="bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
                 >
-                  <a href="tel:0721993234">Call: 0721993234</a>
+                  <a href="tel:+254721993234">Call: +254 721 993 234</a>
                 </Button>
               </div>
             </CardContent>

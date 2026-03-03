@@ -164,10 +164,10 @@ const Gallery = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
-              href="tel:0721993234"
+              href="tel:+254721993234"
               className="inline-flex items-center justify-center px-8 py-3 rounded-lg bg-background text-foreground hover:bg-background/90 font-semibold transition-colors"
             >
-              Call: 0721993234
+              Call: +254 721 993 234
             </a>
             <a
               href="https://wa.me/254721993234"

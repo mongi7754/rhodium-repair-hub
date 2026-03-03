@@ -33,10 +33,10 @@ const Contact = () => {
                       <h3 className="font-semibold mb-2">Phone</h3>
                       <p className="text-muted-foreground mb-2">Call us during business hours</p>
                       <a
-                        href="tel:0721993234"
+                        href="tel:+254721993234"
                         className="text-primary font-semibold hover:underline"
                       >
-                        0721 993 234
+                        +254 721 993 234
                       </a>
                     </div>
                   </div>

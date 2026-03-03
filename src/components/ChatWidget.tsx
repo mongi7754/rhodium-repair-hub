@@ -276,8 +276,8 @@ const ChatWidget = () => {
               </div>
               <p className="text-xs text-muted-foreground mt-2 text-center">
                 Need urgent help?{" "}
-                <a href="tel:0721993234" className="text-primary hover:underline">
-                  Call 0721993234
+                <a href="tel:+254721993234" className="text-primary hover:underline">
+                  Call +254 721 993 234
                 </a>
               </p>
             </div>

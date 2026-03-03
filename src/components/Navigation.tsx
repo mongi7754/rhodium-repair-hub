@@ -86,7 +86,7 @@ const Navigation = () => {
                 </Link>
               ))}
               <Button asChild size="sm" className="w-full">
-                <a href="tel:0721993234">
+                <a href="tel:+254721993234">
                   <Phone className="w-4 h-4 mr-2" />
                   Call Now
                 </a>
