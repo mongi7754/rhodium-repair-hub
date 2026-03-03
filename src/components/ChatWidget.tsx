@@ -71,7 +71,7 @@ const ChatWidget = () => {
         } else if (error.message?.includes("402") || error.message?.includes("payment")) {
           toast({
             title: "Service temporarily unavailable",
-            description: "Please call us at 0721993234 for immediate assistance.",
+            description: "Please call us at +254 721 993 234 for immediate assistance.",
             variant: "destructive",
           });
         } else {
