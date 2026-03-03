@@ -111,7 +111,7 @@ const ChatWidget = () => {
         {
           role: "assistant",
           content:
-            "Sorry, I encountered an error. Please call us at 0721993234 for immediate assistance!",
+            "Sorry, I encountered an error. Please call us at +254 721 993 234 for immediate assistance!",
         },
       ]);
     } finally {
