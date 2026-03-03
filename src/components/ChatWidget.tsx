@@ -87,7 +87,7 @@ const ChatWidget = () => {
           {
             role: "assistant",
             content:
-              "I'm having trouble right now. Please call us at 0721993234 or WhatsApp for immediate assistance!",
+              "I'm having trouble right now. Please call us at +254 721 993 234 or WhatsApp for immediate assistance!",
           },
         ]);
         return;
