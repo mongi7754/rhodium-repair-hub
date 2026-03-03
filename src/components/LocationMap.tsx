@@ -49,7 +49,7 @@ const LocationMap = () => {
             .setHTML(
               '<h3 style="font-weight: bold; margin-bottom: 4px;">Rhodium Ventures PhoneRepair</h3>' +
               '<p style="margin: 0;">Roysambu - Next to Shell Petrol Station</p>' +
-              '<p style="margin: 4px 0 0 0; font-size: 12px;">📞 0721993234</p>'
+              '<p style="margin: 4px 0 0 0; font-size: 12px;">📞 +254 721 993 234</p>'
             )
         )
         .addTo(map.current);

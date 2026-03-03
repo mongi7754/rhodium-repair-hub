@@ -71,7 +71,7 @@ const ChatWidget = () => {
         } else if (error.message?.includes("402") || error.message?.includes("payment")) {
           toast({
             title: "Service temporarily unavailable",
-            description: "Please call us at 0721993234 for immediate assistance.",
+            description: "Please call us at +254 721 993 234 for immediate assistance.",
             variant: "destructive",
           });
         } else {
@@ -87,7 +87,7 @@ const ChatWidget = () => {
           {
             role: "assistant",
             content:
-              "I'm having trouble right now. Please call us at 0721993234 or WhatsApp for immediate assistance!",
+              "I'm having trouble right now. Please call us at +254 721 993 234 or WhatsApp for immediate assistance!",
           },
         ]);
         return;
@@ -111,7 +111,7 @@ const ChatWidget = () => {
         {
           role: "assistant",
           content:
-            "Sorry, I encountered an error. Please call us at 0721993234 for immediate assistance!",
+            "Sorry, I encountered an error. Please call us at +254 721 993 234 for immediate assistance!",
         },
       ]);
     } finally {
@@ -276,8 +276,8 @@ const ChatWidget = () => {
               </div>
               <p className="text-xs text-muted-foreground mt-2 text-center">
                 Need urgent help?{" "}
-                <a href="tel:0721993234" className="text-primary hover:underline">
-                  Call 0721993234
+                <a href="tel:+254721993234" className="text-primary hover:underline">
+                  Call +254 721 993 234
                 </a>
               </p>
             </div>

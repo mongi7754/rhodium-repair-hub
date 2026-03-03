@@ -295,7 +295,7 @@ const Testimonials = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild size="lg" variant="secondary">
-              <a href="tel:0721993234">Call: 0721993234</a>
+              <a href="tel:+254721993234">Call: +254 721 993 234</a>
             </Button>
             <Button
               asChild

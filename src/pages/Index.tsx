@@ -41,9 +41,9 @@ const Index = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-primary hover:bg-accent text-lg">
-                <a href="tel:0721993234">
+                <a href="tel:+254721993234">
                   <Phone className="w-5 h-5 mr-2" />
-                  Call: 0721993234
+                  Call: +254 721 993 234
                 </a>
               </Button>
               <Button asChild size="lg" variant="outline" className="text-lg">
