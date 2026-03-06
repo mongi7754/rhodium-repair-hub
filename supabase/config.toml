@@ -11,6 +11,3 @@ verify_jwt = false
 
 [functions.parse-voice-sale]
 verify_jwt = false
-
-[functions.analyze-fraud]
-verify_jwt = false

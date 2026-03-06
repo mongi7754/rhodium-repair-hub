@@ -11,7 +11,6 @@ import {
   Menu,
   BarChart3,
   Sparkles,
-  ShieldAlert,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -24,7 +23,6 @@ const navItems = [
   { path: "/reports", label: "Reports", icon: BarChart3 },
   { path: "/inventory", label: "Inventory", icon: Package },
   { path: "/expenses", label: "Expenses", icon: Receipt },
-  { path: "/fraud-monitor", label: "Fraud Monitor", icon: ShieldAlert },
   { path: "/settings", label: "Settings", icon: Settings },
 ];
 
