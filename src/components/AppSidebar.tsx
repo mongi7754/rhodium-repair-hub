@@ -11,6 +11,7 @@ import {
   Menu,
   BarChart3,
   Sparkles,
+  ShieldAlert,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
