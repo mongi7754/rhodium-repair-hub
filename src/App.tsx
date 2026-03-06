@@ -10,6 +10,7 @@ import Reports from "./pages/Reports";
 import Inventory from "./pages/Inventory";
 import Expenses from "./pages/Expenses";
 import AppSettings from "./pages/AppSettings";
+import FraudMonitor from "./pages/FraudMonitor";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 
