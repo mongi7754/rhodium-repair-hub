@@ -10,6 +10,7 @@ import Reports from "./pages/Reports";
 import Inventory from "./pages/Inventory";
 import Expenses from "./pages/Expenses";
 import AppSettings from "./pages/AppSettings";
+import FraudMonitor from "./pages/FraudMonitor";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -31,6 +32,7 @@ const App = () => (
           <Route path="/inventory" element={<ProtectedRoute><Inventory /></ProtectedRoute>} />
           <Route path="/expenses" element={<ProtectedRoute><Expenses /></ProtectedRoute>} />
           <Route path="/settings" element={<ProtectedRoute><AppSettings /></ProtectedRoute>} />
+          <Route path="/fraud-monitor" element={<ProtectedRoute><FraudMonitor /></ProtectedRoute>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
