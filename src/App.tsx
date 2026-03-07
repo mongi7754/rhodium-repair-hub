@@ -3,7 +3,6 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import VoiceLog from "./pages/VoiceLog";
 import Sales from "./pages/Sales";
@@ -12,8 +11,6 @@ import Inventory from "./pages/Inventory";
 import Expenses from "./pages/Expenses";
 import AppSettings from "./pages/AppSettings";
 import NotFound from "./pages/NotFound";
-import ResetPassword from "./pages/ResetPassword";
-import ProtectedRoute from "./components/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
