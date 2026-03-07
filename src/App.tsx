@@ -21,16 +21,14 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
-          <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-          <Route path="/voice" element={<ProtectedRoute><VoiceLog /></ProtectedRoute>} />
-          <Route path="/sales" element={<ProtectedRoute><Sales /></ProtectedRoute>} />
-          <Route path="/reports" element={<ProtectedRoute><Reports /></ProtectedRoute>} />
-          <Route path="/inventory" element={<ProtectedRoute><Inventory /></ProtectedRoute>} />
-          <Route path="/expenses" element={<ProtectedRoute><Expenses /></ProtectedRoute>} />
-          <Route path="/settings" element={<ProtectedRoute><AppSettings /></ProtectedRoute>} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/voice" element={<VoiceLog />} />
+          <Route path="/sales" element={<Sales />} />
+          <Route path="/reports" element={<Reports />} />
+          <Route path="/inventory" element={<Inventory />} />
+          <Route path="/expenses" element={<Expenses />} />
+          <Route path="/settings" element={<AppSettings />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
