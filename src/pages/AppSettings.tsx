@@ -96,6 +96,7 @@ const AppSettings = () => {
   if (loading) return <PinGate pageName="Settings"><AppLayout><div className="flex justify-center py-12"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div></AppLayout></PinGate>;
 
   return (
+    <PinGate pageName="Settings">
     <AppLayout>
       <div className="space-y-6 max-w-lg">
         <h1 className="text-3xl font-bold">Settings</h1>
