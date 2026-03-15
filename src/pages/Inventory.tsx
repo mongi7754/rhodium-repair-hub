@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import AppLayout from "@/components/AppLayout";
+import PinGate from "@/components/PinGate";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -75,6 +76,7 @@ const Inventory = () => {
   const lowStock = products.filter((p) => p.stock_quantity <= p.reorder_level);
 
   return (
+    <PinGate pageName="Inventory">
     <AppLayout>
       <div className="space-y-6">
         <div className="flex items-center justify-between">
@@ -199,6 +201,7 @@ const Inventory = () => {
         )}
       </div>
     </AppLayout>
+    </PinGate>
   );
 };
 

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import AppLayout from "@/components/AppLayout";
+import PinGate from "@/components/PinGate";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Loader2 } from "lucide-react";
@@ -94,13 +95,16 @@ const Reports = () => {
 
   if (loading) {
     return (
+      <PinGate pageName="Reports">
       <AppLayout>
         <div className="flex justify-center py-20"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div>
       </AppLayout>
+      </PinGate>
     );
   }
 
   return (
+    <PinGate pageName="Reports">
     <AppLayout>
       <div className="space-y-6">
         <div className="flex items-center justify-between">
@@ -205,6 +209,7 @@ const Reports = () => {
         </div>
       </div>
     </AppLayout>
+    </PinGate>
   );
 };
 

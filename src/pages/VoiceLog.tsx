@@ -2,6 +2,7 @@ import { useState, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import AppLayout from "@/components/AppLayout";
+import PinGate from "@/components/PinGate";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -113,6 +114,7 @@ const VoiceLog = () => {
     : "Tap the mic to speak";
 
   return (
+    <PinGate pageName="Voice Log">
     <AppLayout>
       <div className="space-y-6 max-w-lg mx-auto">
         <div className="text-center space-y-2">
@@ -199,6 +201,7 @@ const VoiceLog = () => {
         )}
       </div>
     </AppLayout>
+    </PinGate>
   );
 };
 

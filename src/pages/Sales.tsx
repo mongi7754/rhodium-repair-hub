@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import AppLayout from "@/components/AppLayout";
+import PinGate from "@/components/PinGate";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -76,6 +77,7 @@ const Sales = () => {
   const totalRevenue = sales.reduce((sum, s) => sum + Number(s.total_amount), 0);
 
   return (
+    <PinGate pageName="Sales">
     <AppLayout>
       <div className="space-y-6">
         <div className="flex items-center justify-between">
@@ -173,6 +175,7 @@ const Sales = () => {
         )}
       </div>
     </AppLayout>
+    </PinGate>
   );
 };
 

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import AppLayout from "@/components/AppLayout";
+import PinGate from "@/components/PinGate";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -92,9 +93,10 @@ const AppSettings = () => {
     }
   };
 
-  if (loading) return <AppLayout><div className="flex justify-center py-12"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div></AppLayout>;
+  if (loading) return <PinGate pageName="Settings"><AppLayout><div className="flex justify-center py-12"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div></AppLayout></PinGate>;
 
   return (
+    <PinGate pageName="Settings">
     <AppLayout>
       <div className="space-y-6 max-w-lg">
         <h1 className="text-3xl font-bold">Settings</h1>
@@ -225,6 +227,7 @@ const AppSettings = () => {
         </Card>
       </div>
     </AppLayout>
+    </PinGate>
   );
 };
 
