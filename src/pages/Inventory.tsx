@@ -201,6 +201,7 @@ const Inventory = () => {
         )}
       </div>
     </AppLayout>
+    </PinGate>
   );
 };
 

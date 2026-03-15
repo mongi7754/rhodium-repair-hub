@@ -169,6 +169,7 @@ const Expenses = () => {
         )}
       </div>
     </AppLayout>
+    </PinGate>
   );
 };
 

@@ -209,6 +209,7 @@ const Reports = () => {
         </div>
       </div>
     </AppLayout>
+    </PinGate>
   );
 };
 

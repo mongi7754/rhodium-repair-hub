@@ -227,6 +227,7 @@ const AppSettings = () => {
         </Card>
       </div>
     </AppLayout>
+    </PinGate>
   );
 };
 

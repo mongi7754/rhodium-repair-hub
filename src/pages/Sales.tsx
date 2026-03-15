@@ -175,6 +175,7 @@ const Sales = () => {
         )}
       </div>
     </AppLayout>
+    </PinGate>
   );
 };
 

@@ -201,6 +201,7 @@ const VoiceLog = () => {
         )}
       </div>
     </AppLayout>
+    </PinGate>
   );
 };
 
