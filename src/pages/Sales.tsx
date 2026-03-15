@@ -77,6 +77,7 @@ const Sales = () => {
   const totalRevenue = sales.reduce((sum, s) => sum + Number(s.total_amount), 0);
 
   return (
+    <PinGate pageName="Sales">
     <AppLayout>
       <div className="space-y-6">
         <div className="flex items-center justify-between">
