@@ -95,13 +95,16 @@ const Reports = () => {
 
   if (loading) {
     return (
+      <PinGate pageName="Reports">
       <AppLayout>
         <div className="flex justify-center py-20"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div>
       </AppLayout>
+      </PinGate>
     );
   }
 
   return (
+    <PinGate pageName="Reports">
     <AppLayout>
       <div className="space-y-6">
         <div className="flex items-center justify-between">
