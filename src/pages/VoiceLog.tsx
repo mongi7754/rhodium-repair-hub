@@ -114,6 +114,7 @@ const VoiceLog = () => {
     : "Tap the mic to speak";
 
   return (
+    <PinGate pageName="Voice Log">
     <AppLayout>
       <div className="space-y-6 max-w-lg mx-auto">
         <div className="text-center space-y-2">
