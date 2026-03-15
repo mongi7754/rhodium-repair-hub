@@ -76,6 +76,7 @@ const Inventory = () => {
   const lowStock = products.filter((p) => p.stock_quantity <= p.reorder_level);
 
   return (
+    <PinGate pageName="Inventory">
     <AppLayout>
       <div className="space-y-6">
         <div className="flex items-center justify-between">
