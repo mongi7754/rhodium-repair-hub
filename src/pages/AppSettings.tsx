@@ -93,7 +93,7 @@ const AppSettings = () => {
     }
   };
 
-  if (loading) return <AppLayout><div className="flex justify-center py-12"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div></AppLayout>;
+  if (loading) return <PinGate pageName="Settings"><AppLayout><div className="flex justify-center py-12"><Loader2 className="h-8 w-8 animate-spin text-primary" /></div></AppLayout></PinGate>;
 
   return (
     <AppLayout>
