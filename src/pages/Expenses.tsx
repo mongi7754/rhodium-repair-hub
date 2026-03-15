@@ -80,6 +80,7 @@ const Expenses = () => {
   }, {} as Record<string, number>);
 
   return (
+    <PinGate pageName="Expenses">
     <AppLayout>
       <div className="space-y-6">
         <div className="flex items-center justify-between">
