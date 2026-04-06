@@ -3,18 +3,12 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import FleetDashboard from "./pages/FleetDashboard";
-import Fleet from "./pages/Fleet";
-import Trips from "./pages/Trips";
-import Drivers from "./pages/Drivers";
-import LiveMap from "./pages/LiveMap";
-import FuelMonitor from "./pages/FuelMonitor";
-import FleetAlerts from "./pages/FleetAlerts";
-import FleetReports from "./pages/FleetReports";
-import Deliveries from "./pages/Deliveries";
-import Maintenance from "./pages/Maintenance";
-import Geofences from "./pages/Geofences";
-import FleetSettings from "./pages/FleetSettings";
+import FlowMintDashboard from "./pages/FlowMintDashboard";
+import WalletPage from "./pages/WalletPage";
+import SmartPOS from "./pages/SmartPOS";
+import AIAssistant from "./pages/AIAssistant";
+import AnalyticsPage from "./pages/AnalyticsPage";
+import SettingsPage from "./pages/SettingsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,18 +21,12 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Navigate to="/dashboard" replace />} />
-          <Route path="/dashboard" element={<FleetDashboard />} />
-          <Route path="/live-map" element={<LiveMap />} />
-          <Route path="/fleet" element={<Fleet />} />
-          <Route path="/trips" element={<Trips />} />
-          <Route path="/drivers" element={<Drivers />} />
-          <Route path="/deliveries" element={<Deliveries />} />
-          <Route path="/fuel" element={<FuelMonitor />} />
-          <Route path="/alerts" element={<FleetAlerts />} />
-          <Route path="/reports" element={<FleetReports />} />
-          <Route path="/maintenance" element={<Maintenance />} />
-          <Route path="/geofences" element={<Geofences />} />
-          <Route path="/settings" element={<FleetSettings />} />
+          <Route path="/dashboard" element={<FlowMintDashboard />} />
+          <Route path="/wallet" element={<WalletPage />} />
+          <Route path="/pos" element={<SmartPOS />} />
+          <Route path="/ai-assistant" element={<AIAssistant />} />
+          <Route path="/analytics" element={<AnalyticsPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
