@@ -58,6 +58,48 @@ export type Database = {
           },
         ]
       }
+      ai_insights: {
+        Row: {
+          action_url: string | null
+          created_at: string
+          description: string
+          id: string
+          insight_type: string
+          is_dismissed: boolean
+          is_read: boolean
+          metadata: Json | null
+          priority: string
+          title: string
+          user_id: string
+        }
+        Insert: {
+          action_url?: string | null
+          created_at?: string
+          description?: string
+          id?: string
+          insight_type?: string
+          is_dismissed?: boolean
+          is_read?: boolean
+          metadata?: Json | null
+          priority?: string
+          title?: string
+          user_id: string
+        }
+        Update: {
+          action_url?: string | null
+          created_at?: string
+          description?: string
+          id?: string
+          insight_type?: string
+          is_dismissed?: boolean
+          is_read?: boolean
+          metadata?: Json | null
+          priority?: string
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       customers: {
         Row: {
           address: string | null
@@ -715,6 +757,57 @@ export type Database = {
         }
         Relationships: []
       }
+      pos_sessions: {
+        Row: {
+          created_at: string
+          customer_name: string | null
+          customer_phone: string | null
+          discount: number
+          id: string
+          items: Json
+          notes: string | null
+          payment_method: string | null
+          payment_status: string
+          receipt_number: string | null
+          subtotal: number
+          tax: number
+          total: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          customer_name?: string | null
+          customer_phone?: string | null
+          discount?: number
+          id?: string
+          items?: Json
+          notes?: string | null
+          payment_method?: string | null
+          payment_status?: string
+          receipt_number?: string | null
+          subtotal?: number
+          tax?: number
+          total?: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          customer_name?: string | null
+          customer_phone?: string | null
+          discount?: number
+          id?: string
+          items?: Json
+          notes?: string | null
+          payment_method?: string | null
+          payment_status?: string
+          receipt_number?: string | null
+          subtotal?: number
+          tax?: number
+          total?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
       products: {
         Row: {
           buying_price: number
@@ -1261,6 +1354,92 @@ export type Database = {
           year?: number | null
         }
         Relationships: []
+      }
+      wallet_accounts: {
+        Row: {
+          account_type: string
+          balance: number
+          created_at: string
+          currency: string
+          id: string
+          split_percentage: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          account_type?: string
+          balance?: number
+          created_at?: string
+          currency?: string
+          id?: string
+          split_percentage?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          account_type?: string
+          balance?: number
+          created_at?: string
+          currency?: string
+          id?: string
+          split_percentage?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      wallet_transactions: {
+        Row: {
+          account_id: string | null
+          amount: number
+          category: string
+          created_at: string
+          description: string | null
+          id: string
+          is_auto_detected: boolean
+          payment_method: string | null
+          reference: string | null
+          status: string
+          transaction_type: string
+          user_id: string
+        }
+        Insert: {
+          account_id?: string | null
+          amount?: number
+          category?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_auto_detected?: boolean
+          payment_method?: string | null
+          reference?: string | null
+          status?: string
+          transaction_type?: string
+          user_id: string
+        }
+        Update: {
+          account_id?: string | null
+          amount?: number
+          category?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_auto_detected?: boolean
+          payment_method?: string | null
+          reference?: string | null
+          status?: string
+          transaction_type?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "wallet_transactions_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "wallet_accounts"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
